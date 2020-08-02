@@ -1,0 +1,11 @@
+﻿Model,Vehicle Manufacturing,Upstream Fuel Production,Tailpipe Emissions,Battery Manufacturing,Type
+Toyota Corolla,57,56,281,0,Conventional
+Toyota Prius Eco,57,35,158,0.76,Hybrid
+Nissan Leaf,57,150,0,40.5,Fully electric
+Honda Accord,170,61,266,0,Conventional
+Honda Accord Hybrid,170,41,184,1.3,Hybrid
+Tesla Model S,170,150,0,101.25,Fully electric
+Toyota RAV4,250,58,302,0,Conventional
+Toyota RAV4 Hybrid,250,47,223,1.62,Hybrid
+Tesla Model X,250,210,0,101.25,Fully electric
+Ford F-150,350,128,546,0,Conventional

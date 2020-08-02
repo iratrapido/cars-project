@@ -1,0 +1,207 @@
+
+*{
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+
+body{
+  background: #000000;
+  font-family: montserrat, arial,helvetica,sans-serif;
+
+}
+
+.page-header {
+  margin: 25px 25px 0 25px;
+  height:100px;
+  padding: 10px 10px;
+  display: flex;
+  background: #485563;
+  border-radius: 9px 9px 0 0;
+}
+
+.page-header #title {
+  text-align: left;
+  font-size: 40px;
+  color: #FFF;
+  font-size: 1.875rem;
+  line-height: 34px;
+  line-height: 80px;
+  font-weight: bold;
+  font-style: normal;
+  padding: 0 100px;
+}
+
+.page-header #logo {
+  width: 100px;
+}
+
+.wrapper {
+  background: #f5f4f0;
+  display: flex;
+  height: 480px;
+  margin: 0 25px 0 25px;
+}
+
+.wrapper #left{
+  width: 340px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  background: #e8e7e3;
+}
+
+#change_text {
+  font-size: 1.1rem;
+  color: #485563;
+}
+
+.btn-group {
+  display: flex;
+  padding: 5px 5px 30px 5px;
+}
+.btn-group .button {
+  background-color: #4CAF50;
+  border: 1px solid green;
+  color: white;
+  padding: 15px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+
+}
+
+.btn-group .button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+.btn-group .button:hover {
+  background-color: #3e8e41;
+}
+
+.slider_group {
+  display: flex;
+  padding: 10px 2px 0 2px;
+}
+
+.slider_group #miles_value{
+  text-align: left;
+  font-size: 23px;
+  color: #006622;
+}
+.slider_text{
+  padding: 10px 2px 0 2px;
+  color: #006622;
+  font-weight: bold;
+
+}
+
+.selector{
+  padding: 10px 0 0 0;
+}
+
+.selector label{
+  color: #006622;
+  font-weight: bold;
+}
+
+.instructions_img1 #instructions_img1{
+  height: 50px;
+  width: 50px;
+}
+
+#instructions1{
+  display: flex;
+}
+
+#instructions2{
+  display: flex;
+}
+
+#img_row1{
+  display: flex;
+  margin: 0 10px 0 10px;
+}
+
+#img_row2{
+  display: flex;
+  margin: 0px 10px 0px 10px;
+}
+
+
+.vertical_line {
+    stroke: #485563;
+    stroke-dasharray: 2px 4px;
+}
+
+.chart_title{
+  font-size: 20px;
+  fill: #485563;
+  font-weight: bold;
+}
+
+.section_label{
+  font-size: 12px;
+  fill: #3d3d3d;
+}
+
+.legend_text{
+  font-size: 11px;
+  fill: #3d3d3d;
+}
+
+#smaller_text{
+  font-size: 14px;
+  text-align: justify;
+}
+
+.references{
+  color: #485563;
+  margin: 50px 50px 50px 50px;
+  font-size: 15px;
+}
+
+
+#ref_list
+{
+  line-height:200%;
+}
+
+li {
+    margin-left: 10px;
+    list-style-type: disc;
+ }
+
+.annotation-note-label{
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.tooltip {
+    opacity: 0;
+    padding: 0.6em 0.5em;
+    background: #fff;
+    text-align: center;
+    font-size: 0.9em;
+    border: 1px solid #ddd;
+    z-index: 10;
+    transition: all 0.2s ease-out;
+    pointer-events: none;
+    position: absolute;
+    border-radius: 5px;
+}
+
+#img_hand{
+  margin: 0 10px 10px 10px;
+}
+
+#instructions3{
+  margin: 10px 40px 10px 10px;
+  font-size: 1.2em;
+  text-align: center;
+  font-weight: bold
+}

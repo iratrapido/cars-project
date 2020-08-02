@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Final Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src='https://d3js.org/d3.v5.min.js'></script>
+    <script src='script.js'></script>
+    <script src='annotations.js'></script>
+    <script src='slider.js'></script>
+
+  </head>
+  <body onload = "scene1()">
+   <div class="page-header">
+      <div id ="logo">
+        <img src="images/car.png" alt="Image of car" style="height:90px;">
+    </div>
+      <div id="title">WHICH CAR IS GREENER?</div>
+   </div>
+   <div class = "wrapper">
+     <div class = "column" id = "left">
+       <nav class = "btn-group">
+         <button class= "button" id = "1" onclick="scene1()">Start</button>
+         <button class="button" id = "2" onclick="scene2()">1</button>
+         <button class = "button" id = "3" onclick="scene3()">2</button>
+         <button class = "button" id = "4" onclick="scene4()">3</button>
+         <button class = "button" id = "5" onclick="scene5()">4</button>
+         <button class = "button" id = "6" onclick="scene6()">End</button>
+       </nav>
+       <div id = "change_text">
+       </div>
+     </div>
+     <div class = "column" id = "right">
+       <div id = "change_chart">
+       </div>
+     </div>
+    </div>
+   </div>
+  </body>
+</html>
