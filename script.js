@@ -104,7 +104,7 @@ function scene2(){
    d3.select("#change_text").html(`<p>Over the last decade, electric vehicles,
      both plug-in hybrids and fully electric, have significantly grown in popularity.
      They provide smooth and noiseless driving, low maintenance, quick acceleration,
-     and, above all, produce no tailpipe emissions.</p><p>But are electric cars really green?
+     and, above all, produce no tailpipe emissions.</p><p>But are electric cars really green?<br>
      Let's find out!</p>`);
    d3.select("#change_chart").html("");
    drawChart2();
@@ -310,12 +310,12 @@ async function drawChart2() {
           .style("stroke", "grey")
           .attr("marker-end", "url(#triangle)")
 
-    var x = xScale(2010)+xScale.bandwidth()/2+45;
+    var x = xScale(2010)+xScale.bandwidth()/2;
     bounds.append("text")
         .attr("class", "annotation-label")
         .attr("x", x)
         .attr("y", yScale(dataset[0].total)-65)
-        .attr("text-anchor", "middle")
+        .attr("text-anchor", "left")
         .html(`<tspan x=${x}>In 2010, there were only</tspan><tspan x=${x} dy=15>170,400 electric cars globally</tspan>`);
 
     bounds.append("line")
@@ -326,15 +326,16 @@ async function drawChart2() {
           .style("stroke", "grey")
           .attr("marker-end", "url(#triangle)")
 
-      x = xScale(2019)+xScale.bandwidth()/2-130;
+      x = xScale(2019)+xScale.bandwidth()/2-180;
       bounds.append("text")
           .attr("class", "annotation-label")
           .attr("x", x)
           .attr("y", yScale(dataset[9].total)+55)
-          .attr("text-anchor", "middle")
+          .attr("text-anchor", "left")
           .html(`<tspan x=${x}>In 2019, the total number </tspan>
             <tspan x=${x} dy=15>of electric cars (all-electric + </tspan>
-            <tspan x=${x} dy=15>hybrid plug-ins) surpassed 7 million</tspan>`);
+            <tspan x=${x} dy=15>hybrid plug-ins) surpassed</tspan>
+            <tspan x=${x} dy=15>7 million</tspan>`);
 
       //add title
       bounds.append("text")
@@ -539,7 +540,7 @@ async function drawChart3() {
            .attr("marker-end", "url(#triangle)");
 
      x = x-150;
-     y = y-100-5*15;
+     y = y-110-5*15;
      bounds.append("text")
          .attr("class", "annotation-label")
          .attr("x", x)
@@ -603,6 +604,17 @@ async function drawChart3() {
                         <tspan x=${x} dy=15>between gas and electric cars is</tspan>
                         <tspan x=${x} dy=15>is not that big</tspan>
                       `);
+
+              x = xScale("Toyota RAV4")+xScale.bandwidth()/2;
+              y = yScale(dataset.filter(function(d){ return d.Model == "Toyota RAV4" })[0].total);
+              bounds.append("line")
+                    .attr("x2", x)
+                    .attr("y2", y)
+                    .attr("x1", x+30)
+                    .attr("y1", y-20)
+                    .style("stroke", "grey")
+                    .attr("marker-end", "url(#triangle)");
+
 
 }
 
