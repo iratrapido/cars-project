@@ -160,13 +160,6 @@ function scene6(){
         <li>The Guardian. <a href="https://www.theguardian.com/environment/green-living-blog/2010/sep/23/carbon-footprint-new-car">"What's the carbon footprint of ... a new car?"</a> September 23, 2010.</li>
         <li>Zeke Hausfather. <a href ="https://www.carbonbrief.org/factcheck-how-electric-vehicles-help-to-tackle-climate-change">"Factcheck: How electric vehicles help to tackle climate change."</a> May 13, 2019.</li>
       </ul>
-      <br />
-      <p class = "chart_title">Libraries used:</p><br />
-      <ul id = "ref_list">
-        <li><a href="https://github.com/d3/d3">D3.js</a> by Michael Bostock</li>
-        <li><a href="https://d3-annotation.susielu.com">D3-annotation</a> by Susie Lu</li>
-        <li><a href="https://github.com/johnwalley/D3-simple-slider">D3-simple-slider</a> by John Walley</li>
-      </ul>
       `
      )
 }
@@ -297,41 +290,53 @@ async function drawChart2() {
 
 
         //add annotations
-    const annotations = [
-        {
-          note: { label: "In 2010, there were only 170,400 electric cars globally",
-                  wrap: 180,
-                  align: "left"},
-          x: xScale(2010)+dimensions.margin.left+30,
-          y: yScale(dataset[0].total)+dimensions.margin.top,
-          dx: 50,
-          dy: -50,
-          type: d3.annotationCalloutElbow,
-          connector: { end: "arrow" },
-        },
-        {
-          note: { label: "In 2019, the total number of electric cars (all-electric + hybrid plug-ins) surpassed 7 million",
-                  wrap: 180,
-                  align: "left"},
-          x: xScale(2019)+dimensions.margin.left+30,
-          y: yScale(dataset[years.length-1].total)+dimensions.margin.top,
-          dx: -250,
-          dy: 50,
-          type: d3.annotationCalloutElbow,
-          connector: { end: "arrow" },
-        },
-      ];
+    bounds.append("svg:defs").append("svg:marker")
+          .attr("id", "triangle")
+          .attr("refX", 12)
+          .attr("refY", 6)
+          .attr("markerWidth", 30)
+          .attr("markerHeight", 30)
+          .attr("orient", "auto")
+          .append("path")
+          .attr("d", "M 0 0 12 6 0 12 3 6")
+          .style("fill", "grey")
+          .style("stroke", "grey");
 
-      const makeAnnotations = d3.annotation()
-         .type(d3.annotationLabel)
-         .disable("subject")
-         .annotations(annotations)
+    bounds.append("line")
+          .attr("x2", xScale(2010)+xScale.bandwidth()/2)
+          .attr("y2", yScale(dataset[0].total))
+          .attr("x1", xScale(2010)+xScale.bandwidth()/2+45)
+          .attr("y1", yScale(dataset[0].total)-45)
+          .style("stroke", "grey")
+          .attr("marker-end", "url(#triangle)")
 
-      wrapper.append("g")
-          .attr("class", "annotation-group")
-          .call(makeAnnotations)
+    var x = xScale(2010)+xScale.bandwidth()/2+45;
+    bounds.append("text")
+        .attr("class", "annotation-label")
+        .attr("x", x)
+        .attr("y", yScale(dataset[0].total)-65)
+        .attr("text-anchor", "middle")
+        .html(`<tspan x=${x}>In 2010, there were only</tspan><tspan x=${x} dy=15>170,400 electric cars globally</tspan>`);
 
-          //add title
+    bounds.append("line")
+          .attr("x2", xScale(2019)+xScale.bandwidth()/2)
+          .attr("y2", yScale(dataset[9].total))
+          .attr("x1", xScale(2019)+xScale.bandwidth()/2-45)
+          .attr("y1", yScale(dataset[9].total)+45)
+          .style("stroke", "grey")
+          .attr("marker-end", "url(#triangle)")
+
+      x = xScale(2019)+xScale.bandwidth()/2-130;
+      bounds.append("text")
+          .attr("class", "annotation-label")
+          .attr("x", x)
+          .attr("y", yScale(dataset[9].total)+55)
+          .attr("text-anchor", "middle")
+          .html(`<tspan x=${x}>In 2019, the total number </tspan>
+            <tspan x=${x} dy=15>of electric cars (all-electric + </tspan>
+            <tspan x=${x} dy=15>hybrid plug-ins) surpassed 7 million</tspan>`);
+
+      //add title
       bounds.append("text")
           .attr("class", "chart_title")
           .attr("x", dimensions.boundedWidth/2)
@@ -510,52 +515,95 @@ async function drawChart3() {
          .attr("text-anchor", "middle")
          .text("Pickup trucks");
 
+    //add annotations
+     bounds.append("svg:defs").append("svg:marker")
+           .attr("id", "triangle")
+           .attr("refX", 12)
+           .attr("refY", 6)
+           .attr("markerWidth", 30)
+           .attr("markerHeight", 30)
+           .attr("orient", "auto")
+           .append("path")
+           .attr("d", "M 0 0 12 6 0 12 3 6")
+           .style("fill", "grey")
+           .style("stroke", "grey");
 
-      //add annotations
-      const annotations = [
-      {
-        note: { label: "Unlike tailpipe emissions that remain constant, lifecycle emissions of electric vehicles will vary significantly depending on the local mix of electrical power sources",
-                wrap: 160,
-                align: "left"},
-        x: xScale("Nissan Leaf")+dimensions.margin.left+30,
-        y: yScale(dataset.filter(function(d){ return d.Model == "Nissan Leaf" })[0].total)+dimensions.margin.top+30,
-        dx: -150,
-        dy: -120,
-        type: d3.annotationCalloutElbow,
-        connector: { end: "arrow" },
-      },
-      {
-        note: { label: "Car size matters more than whether the car is electric: driving a Tesla Model S produces more CO2 than driving a Toyota Corolla.",
-                wrap: 180,
-                align: "left"},
-        x: xScale("Tesla Model S")+dimensions.margin.left+30,
-        y: yScale(dataset.filter(function(d){ return d.Model == "Tesla Model S" })[0].total)+dimensions.margin.top,
-        dx: -160,
-        dy: -100,
-        type: d3.annotationCalloutElbow,
-        connector: { end: "arrow" },
-      },
-      {
-        note: { label: "Because of its large battery, Tesla Model X produces more CO2 than a comparable plug-in hybrid. Also, for larger cars, the difference in CO2 emissions between gas and electric cars is not that big.",
-                wrap: 180,
-                align: "left"},
-        x: xScale("Tesla Model X")+dimensions.margin.left+30,
-        y: yScale(dataset.filter(function(d){ return d.Model == "Tesla Model X" })[0].total)+dimensions.margin.top,
-        dx: -160,
-        dy: -50,
-        type: d3.annotationCalloutElbow,
-        connector: { end: "arrow" },
-      },
-    ];
+     var x = xScale("Nissan Leaf")+xScale.bandwidth()/2;
+     var y = yScale(dataset.filter(function(d){ return d.Model == "Nissan Leaf" })[0].total) + 30;
+     bounds.append("line")
+           .attr("x2", x)
+           .attr("y2", y)
+           .attr("x1", x-100)
+           .attr("y1", y-100)
+           .style("stroke", "grey")
+           .attr("marker-end", "url(#triangle)");
 
-    const makeAnnotations = d3.annotation()
-       .type(d3.annotationLabel)
-       .disable("subject")
-       .annotations(annotations)
+     x = x-150;
+     y = y-100-5*15;
+     bounds.append("text")
+         .attr("class", "annotation-label")
+         .attr("x", x)
+         .attr("y", y)
+         .attr("text-anchor", "left")
+         .html(`<tspan x=${x}>Unlike tailpipe emissions that</tspan>
+                <tspan x=${x} dy=15>remain constant, lifecycle</tspan>
+                <tspan x=${x} dy=15>emissions of electric vehicles</tspan>
+                <tspan x=${x} dy=15>will vary significantly</tspan>
+                <tspan x=${x} dy=15>depending on the local mix</tspan>
+                <tspan x=${x} dy=15>of electrical power sources</tspan>
+              `);
 
-    wrapper.append("g")
-        .attr("class", "annotation-group")
-        .call(makeAnnotations)
+        x = xScale("Tesla Model S")+xScale.bandwidth()/2;
+        y = yScale(dataset.filter(function(d){ return d.Model == "Tesla Model S" })[0].total);
+        bounds.append("line")
+              .attr("x2", x)
+              .attr("y2", y)
+              .attr("x1", x-100)
+              .attr("y1", y-100)
+              .style("stroke", "grey")
+              .attr("marker-end", "url(#triangle)");
+
+          x = x-150;
+          y = y-100-4*15;
+          bounds.append("text")
+              .attr("class", "annotation-label")
+              .attr("x", x)
+              .attr("y", y)
+              .attr("text-anchor", "left")
+              .html(`<tspan x=${x}>Car size matters more than</tspan>
+                     <tspan x=${x} dy=15>whether the car is electric: driving</tspan>
+                     <tspan x=${x} dy=15>a Tesla Model S produces more</tspan>
+                     <tspan x=${x} dy=15>CO2 than driving a Toyota</tspan>
+                     <tspan x=${x} dy=15>Corolla</tspan>
+                   `);
+
+           x = xScale("Tesla Model X")+xScale.bandwidth()/2;
+           y = yScale(dataset.filter(function(d){ return d.Model == "Tesla Model X" })[0].total);
+           bounds.append("line")
+                 .attr("x2", x)
+                 .attr("y2", y)
+                 .attr("x1", x-50)
+                 .attr("y1", y-50)
+                 .style("stroke", "grey")
+                 .attr("marker-end", "url(#triangle)");
+
+
+             x = x-150;
+             y = y-55-5*15;
+             bounds.append("text")
+                 .attr("class", "annotation-label")
+                 .attr("x", x)
+                 .attr("y", y)
+                 .attr("text-anchor", "left")
+                 .html(`<tspan x=${x}>Because of its large battery, Tesla</tspan>
+                        <tspan x=${x} dy=15>Model X produces more CO2 than</tspan>
+                        <tspan x=${x} dy=15>a comparable plug-in hybrid.</tspan>
+                        <tspan x=${x} dy=15>Also, for larger cars, the</tspan>
+                        <tspan x=${x} dy=15>difference in CO2 emissions</tspan>
+                        <tspan x=${x} dy=15>between gas and electric cars is</tspan>
+                        <tspan x=${x} dy=15>is not that big</tspan>
+                      `);
+
 }
 
 async function drawChart4(annotate = true){
@@ -715,51 +763,87 @@ async function drawChart4(annotate = true){
 
        //add annotations
     if (annotate){
-      const annotations = [
-       {
-         note: { label: "The battery of Nissan Leaf causes higher emissions during vehicle manufacture in “year zero”",
-                 wrap: 160,
-                 align: "left"},
-         x: xScale(0)+dimensions.margin.left + 20,
-         y: yScale(data_predict.filter(function(d){ return d["Number of Years"] == 0})[0]["Nissan Leaf"])+dimensions.margin.top,
-         dx: -20,
-         dy: -200,
-         type: d3.annotationCalloutElbow,
-         connector: { end: "arrow" },
-       },
-       {
-         note: { label: "However, this carbon \"debt\" would be paid back after less than two years of driving.",
-                 wrap: 180,
-                 align: "left"},
-         x: xScale(2)+dimensions.margin.left+20,
-         y: yScale(data_predict.filter(function(d){ return d["Number of Years"] == 3})[0]["Nissan Leaf"])+dimensions.margin.top,
-         dx: -20,
-         dy: -100,
-         type: d3.annotationCalloutElbow,
-         connector: { end: "arrow" },
-       },
-       {
-         note: { label: "In 20 years, Nissan Leaf's cumulative CO2 emissions will be almost half of Toyota Corolla's",
-                 wrap: 130,
-                 align: "left"},
-         x: xScale(20)+dimensions.margin.left+30,
-         y: yScale(data_predict.filter(function(d){ return d["Number of Years"] == 20})[0]["Nissan Leaf"])+dimensions.margin.top,
-         dx: 10,
-         dy: -10,
-         type: d3.annotationCalloutElbow,
-         connector: { end: "arrow" },
-       },
-     ];
+      bounds.append("svg:defs").append("svg:marker")
+            .attr("id", "triangle")
+            .attr("refX", 12)
+            .attr("refY", 6)
+            .attr("markerWidth", 30)
+            .attr("markerHeight", 30)
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M 0 0 12 6 0 12 3 6")
+            .style("fill", "grey")
+            .style("stroke", "grey");
 
-     const makeAnnotations = d3.annotation()
-        .type(d3.annotationLabel)
-        .disable("subject")
-        .annotations(annotations)
+      var x = xScale(0)+xScale.bandwidth()/2;
+      var y = yScale(data_predict.filter(function(d){ return d["Number of Years"] == 0})[0]["Nissan Leaf"]);
+      bounds.append("line")
+            .attr("x2", x)
+            .attr("y2", y)
+            .attr("x1", x)
+            .attr("y1", y-150)
+            .style("stroke", "grey")
+            .attr("marker-end", "url(#triangle)");
 
-     wrapper.append("g")
-         .attr("class", "annotation-group")
-         .call(makeAnnotations)
-   }
+        x = x-10;
+        y = y-150-50;
+        bounds.append("text")
+            .attr("class", "annotation-label")
+            .attr("x", x)
+            .attr("y", y)
+            .attr("text-anchor", "left")
+            .html(`<tspan x=${x}>The battery of Nissan Leaf</tspan>
+                   <tspan x=${x} dy=15>causes higher emissions</tspan>
+                   <tspan x=${x} dy=15>during vehicle manufacture</tspan>
+                   <tspan x=${x} dy=15>in "year zero"</tspan>
+                 `);
+
+       x = xScale(2)+xScale.bandwidth()/2;
+       y = yScale(data_predict.filter(function(d){ return d["Number of Years"] == 3})[0]["Nissan Leaf"]);
+       bounds.append("line")
+             .attr("x2", x)
+             .attr("y2", y)
+             .attr("x1", x)
+             .attr("y1", y-55)
+             .style("stroke", "grey")
+             .attr("marker-end", "url(#triangle)");
+
+         x = x-10;
+         y = y-55-50;
+         bounds.append("text")
+             .attr("class", "annotation-label")
+             .attr("x", x)
+             .attr("y", y)
+             .attr("text-anchor", "left")
+             .html(`<tspan x=${x}>However, this carbon "debt"</tspan>
+                    <tspan x=${x} dy=15>would be paid back after</tspan>
+                    <tspan x=${x} dy=15>less than two years</tspan>
+                    <tspan x=${x} dy=15> of driving</tspan>
+                  `);
+
+          x = xScale(20)+xScale.bandwidth()/2;
+          y = yScale(data_predict.filter(function(d){ return d["Number of Years"] == 20})[0]["Nissan Leaf"]);
+          bounds.append("line")
+                .attr("x2", x)
+                .attr("y2", y)
+                .attr("x1", x+35)
+                .attr("y1", y-35)
+                .style("stroke", "grey")
+                .attr("marker-end", "url(#triangle)");
+
+            x = x+20;
+            y = y-35-50;
+            bounds.append("text")
+                .attr("class", "annotation-label")
+                .attr("x", x)
+                .attr("y", y)
+                .attr("text-anchor", "left")
+                .html(`<tspan x=${x}>In 20 years, Nissan</tspan>
+                       <tspan x=${x} dy=15>Leaf's cumulative CO2</tspan>
+                       <tspan x=${x} dy=15>emissions will be almost</tspan>
+                       <tspan x=${x} dy=15>half of Toyota Corolla's</tspan>
+                     `);
+    }
 }
 
 function updateChart(dataset){
